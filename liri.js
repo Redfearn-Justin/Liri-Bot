@@ -2,14 +2,17 @@
 
 require("dotenv").config();
 
+var request = require("request");
+
 // Add the code required to import the keys.js file and store it in a variable. ?????
 
 // variables
 
-var spotify = new Spotify(keys.spotify);
-var client = new Twitter(keys.twitter);
+// var spotify = new Spotify(keys.spotify);
+// var client = new Twitter(keys.twitter);
 
 var command = process.argv[2];
+var name = process.argv[3];
 
 //IF ELSE // SWITCH STATEMENTS
 
@@ -32,7 +35,7 @@ else if (command === "spotify-this-song") {
 
 else if (command === "movie-this") {
 
-    movieThis();
+    movieThis(name);
 }
 
 // node liri.js do-what-it-says
@@ -70,6 +73,24 @@ function spotifyThisSong(song_name) {
 }
 
 function movieThis(movie_name) {
+    
+
+    // Then run a request to the OMDB API with the movie specified
+  request("http://www.omdbapi.com/?t=" + movie_name + "&y=&plot=short&apikey=trilogy", function(error, response) {
+
+    // If the request is successful (i.e. if the response status code is 200)
+    if (!error && response.statusCode === 200) {
+  
+      // Parse the body of the site and recover just the imdbRating
+      // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+      console.log(movie_name + " has a rating of " + JSON.parse(response.body).imdbRating);
+    }
+
+    else {
+        console.log("That's not a movie, silly");
+    }
+    
+  });
 
     //use 'trilogy' key for OMDB API
 
