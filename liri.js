@@ -81,25 +81,23 @@ function movieThis(movie_name) {
     // If the request is successful (i.e. if the response status code is 200)
     if (!error && response.statusCode === 200) {
   
-      // Parse the body of the site and recover just the imdbRating
-      // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-      console.log(movie_name + " has a rating of " + JSON.parse(response.body).imdbRating);
+      console.log("Title: " + JSON.parse(response.body).Title);
+      console.log("Year Released: " + JSON.parse(response.body).Year);
+      console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating);
+      console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value);
+      console.log("Made In: " + JSON.parse(response.body).Country);
+      console.log("Avaiable Languages: " + JSON.parse(response.body).Language);
+      console.log("Synopsis: " + JSON.parse(response.body).Plot);
+      console.log("Actors: " + JSON.parse(response.body).Actors);
+
     }
 
     else {
-        console.log("That's not a movie, silly");
-    }
-    
+        console.log("That's not a movie, silly!");
+    } //this function is not working properly
+
   });
 
-    //use 'trilogy' key for OMDB API
-
-    // Title of the movie.
-    // Year the movie came out.
-    // IMDB Rating of the movie.
-    // Rotten Tomatoes Rating of the movie.
-    // Country where the movie was produced.
-    // Language of the movie.
     // Plot of the movie.
     // Actors in the movie.
 
