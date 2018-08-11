@@ -84,20 +84,14 @@ function spotifyThisSong(song_name) {
 
         else {
 
-            var whatIsIt = data;
-
-            console.log(whatIsIt);
-
-            console.log(data);
-
-            console.log("found your song!");
+            console.log("Found your song! :P ");
 
             var songInfo = data.tracks.items[0];
             
             console.log("Artist: " + songInfo.artists[0].name);
             console.log("Song: " + songInfo.name);
             console.log("Album: " + songInfo.album.name);
-            console.log("Preview URL: " + songInfo.preview_url);
+            console.log("Preview URL: " + songInfo.external_urls.spotify);
   
         }
 
@@ -177,3 +171,5 @@ function doWhatItSays() {
     // Feel free to change the text in that document to test out the feature for other commands.
 
 }
+
+// spotifyThisSong("Hotline Bling");
