@@ -92,14 +92,14 @@ function movieThis(movie_name) {
 
     }
 
-    else {
+    // else if in case the user enters anything that doesn't resemble an actual movie/show -- UNRESOLVED
+
+    else if (response === "") {
+        
         console.log("That's not a movie, silly!");
-    } //this function is not working properly
+    }
 
   });
-
-    // Plot of the movie.
-    // Actors in the movie.
 
     //if the user doesn't type in a movie, maybe put in a gif or something?
 
