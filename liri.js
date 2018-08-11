@@ -33,9 +33,8 @@ if (command === "my-tweets") {
 
 else if (command === "spotify-this-song") {
 
-    //?? haven't verified if argument is correct??
-
     spotifyThisSong(name);
+
 }
 
 else if (command === "movie-this") {
@@ -80,6 +79,8 @@ function spotifyThisSong(song_name) {
 
           console.log("Error occurred: " + err);
 
+          // If no song is provided then your program will default to "The Sign" by Ace of Base.
+
         }
 
         else {
@@ -89,7 +90,7 @@ function spotifyThisSong(song_name) {
             var songInfo = data.tracks.items[0];
             
             console.log("Artist: " + songInfo.artists[0].name);
-            console.log("Song: " + songInfo.name);
+            console.log("Song: " + "'" + songInfo.name + "'");
             console.log("Album: " + songInfo.album.name);
             console.log("Preview URL: " + songInfo.external_urls.spotify);
   
@@ -98,18 +99,6 @@ function spotifyThisSong(song_name) {
         //NOT FINISHED
 
     });
-
-    // This will show the following information about the song in your terminal/bash window
-
-    // Artist(s)
-
-    // The song's name
-
-    // A preview link of the song from Spotify
-
-    // The album that the song is from
-
-    // If no song is provided then your program will default to "The Sign" by Ace of Base.
 
 }
 
@@ -135,7 +124,7 @@ function movieThis(movie_name) {
 
     // in case the user enters anything that doesn't resemble an actual movie/show -- UNRESOLVED
 
-    else if (error || response.statusCode === 404 || response === "") {
+    else {
 
         //below probably won't work -- think of something similar -- layout good
 
@@ -171,5 +160,3 @@ function doWhatItSays() {
     // Feel free to change the text in that document to test out the feature for other commands.
 
 }
-
-// spotifyThisSong("Hotline Bling");
