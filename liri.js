@@ -4,41 +4,44 @@ require("dotenv").config();
 
 var request = require("request");
 
-// Add the code required to import the keys.js file and store it in a variable. ?????
+var Spotify = require("node-spotify-api");
+
+var Twitter = require("twitter");
+
+var keys = require("./keys.js");
+
 
 // variables
 
-// var spotify = new Spotify(keys.spotify);
-// var client = new Twitter(keys.twitter);
+var spotify = new Spotify(keys.spotify);
+
+var client = new Twitter(keys.twitter);
 
 var command = process.argv[2];
 var name = process.argv[3];
 
-//IF ELSE // SWITCH STATEMENTS
+// IF / ELSE STATEMENTS
 
-// Make it so liri.js can take in one of the following commands:
 
-// node liri.js my-tweets
 if (command === "my-tweets") {
 
-    myTweets();
+    //?? haven't verified if argument is correct??
+
+    myTweets(name);
 }
 
-// node liri.js spotify-this-song '<song name here>'
 
 else if (command === "spotify-this-song") {
 
-    spotifyThisSong();
-}
+    //?? haven't verified if argument is correct??
 
-// node liri.js movie-this '<movie name here>'
+    spotifyThisSong(name);
+}
 
 else if (command === "movie-this") {
 
     movieThis(name);
 }
-
-// node liri.js do-what-it-says
 
 else if (command === "do-what-it-says") {
 
@@ -53,10 +56,54 @@ function myTweets() {
 
     // This will show your last 20 tweets and when they were created at in your terminal/bash window.
 
+    var params = {screen_name: 'kitesurf'};
+
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+
+        if (!error) {
+
+            console.log(tweets);
+
+            //show tweets with spaces
+            console.log(JSON.stringify(tweets, null, 4));
+        }
+    });
+    // NOT FINISHED
 
 }
 
 function spotifyThisSong(song_name) {
+
+    spotify.search({ type: 'track', query: song_name }, function(err, data) {
+
+        if (err) {
+
+          console.log("Error occurred: " + err);
+
+        }
+
+        else {
+
+            var whatIsIt = data;
+
+            console.log(whatIsIt);
+
+            console.log(data);
+
+            console.log("found your song!");
+
+            var songInfo = data.tracks.items[0];
+            
+            console.log("Artist: " + songInfo.artists[0].name);
+            console.log("Song: " + songInfo.name);
+            console.log("Album: " + songInfo.album.name);
+            console.log("Preview URL: " + songInfo.preview_url);
+  
+        }
+
+        //NOT FINISHED
+
+    });
 
     // This will show the following information about the song in your terminal/bash window
 
@@ -92,16 +139,32 @@ function movieThis(movie_name) {
 
     }
 
-    // else if in case the user enters anything that doesn't resemble an actual movie/show -- UNRESOLVED
+    // in case the user enters anything that doesn't resemble an actual movie/show -- UNRESOLVED
 
-    else if (response === "") {
+    else if (error || response.statusCode === 404 || response === "") {
+
+        //below probably won't work -- think of something similar -- layout good
+
+        movie_name = "Gangs Of New York";
         
-        console.log("That's not a movie, silly!");
+        console.log("Well, that didn't work..");
+        console.log("\nbut here's a movie I highly recommend :)" );
+        console.log("==========================================");
+
+        console.log("Title: " + JSON.parse(response.body).Title);
+        console.log("Year Released: " + JSON.parse(response.body).Year);
+        console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating);
+        console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value);
+        console.log("Made In: " + JSON.parse(response.body).Country);
+        console.log("Avaiable Languages: " + JSON.parse(response.body).Language);
+        console.log("Synopsis: " + JSON.parse(response.body).Plot);
+        console.log("Actors: " + JSON.parse(response.body).Actors);
+        
     }
 
   });
 
-    //if the user doesn't type in a movie, maybe put in a gif or something?
+  // NOT FINISHED -- JUST NEED TO FINISH ERROR PROCEDURE
 
 }
 
