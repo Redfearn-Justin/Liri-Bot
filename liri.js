@@ -94,9 +94,12 @@ function spotifyThisSong(song_name) {
 
         if (err) {
 
-          console.log("Error occurred: " + err);
+            console.log("Error occurred: " + err + "\n");
 
-          // If no song is provided then your program will default to "The Sign" by Ace of Base.
+            songRedo();
+
+
+            //NOT FINISHED -- error function not working
 
         }
 
@@ -113,8 +116,6 @@ function spotifyThisSong(song_name) {
   
         }
 
-        //NOT FINISHED -- error function not working
-
     });
 
 }
@@ -122,47 +123,33 @@ function spotifyThisSong(song_name) {
 function movieThis(movie_name) {
     
 
-    // Then run a request to the OMDB API with the movie specified
-  request("http://www.omdbapi.com/?t=" + movie_name + "&y=&plot=short&apikey=trilogy", function(error, response) {
 
-    // If the request is successful (i.e. if the response status code is 200)
-    if (!error && response.statusCode === 200) {
+    request("http://www.omdbapi.com/?t=" + movie_name + "&y=&plot=short&apikey=trilogy", function(error, response) {
 
-        console.log("...and here's your movie!\n\n")
-  
-      console.log("Title: " + JSON.parse(response.body).Title + "\n");
-      console.log("Year Released: " + JSON.parse(response.body).Year + "\n");
-      console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating + "\n");
-      console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value + "\n");
-      console.log("Made In: " + JSON.parse(response.body).Country + "\n");
-      console.log("Avaiable Languages: " + JSON.parse(response.body).Language + "\n");
-      console.log("Synopsis: " + JSON.parse(response.body).Plot + "\n");
-      console.log("Actors: " + JSON.parse(response.body).Actors + "\n");
+        if (!error && response.statusCode === 200) {
 
-    }
+            console.log("...and here's your movie!\n\n")
+    
+            console.log("Title: " + JSON.parse(response.body).Title + "\n");
+            console.log("Year Released: " + JSON.parse(response.body).Year + "\n");
+            console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating + "\n");
+            console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value + "\n");
+            console.log("Made In: " + JSON.parse(response.body).Country + "\n");
+            console.log("Avaiable Languages: " + JSON.parse(response.body).Language + "\n");
+            console.log("Synopsis: " + JSON.parse(response.body).Plot + "\n");
+            console.log("Actors: " + JSON.parse(response.body).Actors + "\n");
 
-    else {
+        }
 
-        //NOT FINISHED -- error function not working
+        else if (process.argv[3] === "''" || error) {
 
-        movie_name = "Gangs Of New York";
-        
-        console.log("Well, that didn't work..");
-        console.log("\nbut here's a movie I highly recommend :)");
-        console.log("==========================================");
+            console.log("That's too bad, your search didn't work :( \n");
 
-        console.log("Title: " + JSON.parse(response.body).Title);
-        console.log("Year Released: " + JSON.parse(response.body).Year);
-        console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating);
-        console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value);
-        console.log("Made In: " + JSON.parse(response.body).Country);
-        console.log("Avaiable Languages: " + JSON.parse(response.body).Language);
-        console.log("Synopsis: " + JSON.parse(response.body).Plot);
-        console.log("Actors: " + JSON.parse(response.body).Actors);
-        
-    }
+            movieRedo();
+            
+        }
 
-  });
+    });
 
 }
 
@@ -176,7 +163,52 @@ function doWhatItSays() {
 
 }
 
+
+//resolution functions
+
+function songRedo() {
+
+    spotify.search({ type: 'track', query: "The Sign" }).then(function() {
+
+
+        console.log("Error occurred: " + err + "\n");
+
+        console.log("However, here's a song I know you'll like...\n");
+        console.log("==========================================\n\n");
+
+
+
+        console.log("Artist: " + songInfo.artists[0].name + "\n");
+        console.log("Song: " + "'" + songInfo.name + "'" + "\n");
+        console.log("Album: " + songInfo.album.name + "\n");
+        console.log("Preview URL: " + songInfo.external_urls.spotify + "\n");
+
+    });
+
+}
+
+function movieRedo() {
+
+    console.log("Well, that didn't work..");
+    console.log("\nbut here's a movie I highly recommend :)\n");
+    console.log("==========================================\n\n");
+
+    request("http://www.omdbapi.com/?t=gangs+of+new+york&y=&plot=short&apikey=trilogy").then(function() {
+
+        console.log("Title: " + JSON.parse(response.body).Title);
+        console.log("Year Released: " + JSON.parse(response.body).Year);
+        console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating);
+        console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value);
+        console.log("Made In: " + JSON.parse(response.body).Country);
+        console.log("Avaiable Languages: " + JSON.parse(response.body).Language);
+        console.log("Synopsis: " + JSON.parse(response.body).Plot);
+        console.log("Actors: " + JSON.parse(response.body).Actors);
+    });
+}
 // Notes
 
-// //show tweets with spaces
+
+//NOT FINISHED/RESOLVED - Error functions for Spotify and Movie
+
+// show tweets with spaces
 // console.log(JSON.stringify(tweets, null, 4));
