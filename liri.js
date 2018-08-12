@@ -10,6 +10,8 @@ var Twitter = require("twitter");
 
 var keys = require("./keys.js");
 
+var fs = require("fs");
+
 
 // variables
 
@@ -49,6 +51,8 @@ else if (command === "movie-this") {
 }
 
 else if (command === "do-what-it-says") {
+
+    console.log("\nOh okay, you like to live on the edge.. Well I have just the thing for you :)\n");
 
     doWhatItSays();
 }
@@ -98,9 +102,6 @@ function spotifyThisSong(song_name) {
 
             songRedo();
 
-
-            //NOT FINISHED -- error function not working
-
         }
 
         else {
@@ -141,7 +142,7 @@ function movieThis(movie_name) {
 
         }
 
-        else if (process.argv[3] === "''" || error) {
+        else if (process.argv[3] === "''" || error || !process.argv[3]) {
 
             console.log("That's too bad, your search didn't work :( \n");
 
@@ -154,17 +155,25 @@ function movieThis(movie_name) {
 }
 
 function doWhatItSays() {
+        
+    fs.readFile("random.txt", "utf8", function(error, data) {
 
-    // Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+        if (error) {
 
-    // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
+            return console.log(error)
+        }
+        
+        var dataRead = data.split(",");   
 
-    // Feel free to change the text in that document to test out the feature for other commands.
+        spotifyThisSong(dataRead[1]);
+
+    });   
 
 }
 
 
 //resolution functions
+
 
 function songRedo() {
 
@@ -205,10 +214,8 @@ function movieRedo() {
         console.log("Actors: " + JSON.parse(response.body).Actors);
     });
 }
+
 // Notes
 
 
 //NOT FINISHED/RESOLVED - Error functions for Spotify and Movie
-
-// show tweets with spaces
-// console.log(JSON.stringify(tweets, null, 4));
