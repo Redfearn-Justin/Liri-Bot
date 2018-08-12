@@ -18,26 +18,32 @@ var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 var command = process.argv[2];
+
 var name = process.argv[3];
+
 
 // IF / ELSE STATEMENTS
 
 
 if (command === "my-tweets") {
 
-    //?? haven't verified if argument is correct??
+    console.log("\nHold on one second..looking for your tweets now..\n");
 
-    myTweets(name);
+    myTweets();
 }
 
 
 else if (command === "spotify-this-song") {
+
+    console.log("\nHold on one second..looking for your song now..\n");
 
     spotifyThisSong(name);
 
 }
 
 else if (command === "movie-this") {
+
+    console.log("\nHold on one second..looking for your movie now..\n");
 
     movieThis(name);
 }
@@ -53,21 +59,32 @@ else if (command === "do-what-it-says") {
 
 function myTweets() {
 
-    // This will show your last 20 tweets and when they were created at in your terminal/bash window.
-
-    var params = {screen_name: 'kitesurf'};
+    var params = {screen_name: '__FoxMcCloud_'};
 
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
 
         if (!error) {
 
-            console.log(tweets);
+            console.log("Found your tweets!" + "\n\n");
 
-            //show tweets with spaces
-            console.log(JSON.stringify(tweets, null, 4));
+            var tweetArray = JSON.parse(response.body);
+
+            for (var i = 0; i < tweetArray.length; i++) {
+
+                var tweetArray2 = tweetArray[i];
+
+                console.log("\n\n" + tweetArray2.created_at + "\n" + tweetArray2.text + "\n\n");
+
+
+            }
+        }
+
+        else {
+
+            console.log("Error occured" + error);
+
         }
     });
-    // NOT FINISHED
 
 }
 
@@ -85,14 +102,14 @@ function spotifyThisSong(song_name) {
 
         else {
 
-            console.log("Found your song! :P ");
+            console.log("Found your song! :P \n");
 
             var songInfo = data.tracks.items[0];
             
-            console.log("Artist: " + songInfo.artists[0].name);
-            console.log("Song: " + "'" + songInfo.name + "'");
-            console.log("Album: " + songInfo.album.name);
-            console.log("Preview URL: " + songInfo.external_urls.spotify);
+            console.log("Artist: " + songInfo.artists[0].name + "\n");
+            console.log("Song: " + "'" + songInfo.name + "'" + "\n");
+            console.log("Album: " + songInfo.album.name + "\n");
+            console.log("Preview URL: " + songInfo.external_urls.spotify + "\n");
   
         }
 
@@ -160,3 +177,8 @@ function doWhatItSays() {
     // Feel free to change the text in that document to test out the feature for other commands.
 
 }
+
+// Notes
+
+// //show tweets with spaces
+// console.log(JSON.stringify(tweets, null, 4));
