@@ -113,7 +113,7 @@ function spotifyThisSong(song_name) {
   
         }
 
-        //NOT FINISHED
+        //NOT FINISHED -- error function not working
 
     });
 
@@ -127,28 +127,28 @@ function movieThis(movie_name) {
 
     // If the request is successful (i.e. if the response status code is 200)
     if (!error && response.statusCode === 200) {
+
+        console.log("...and here's your movie!\n\n")
   
-      console.log("Title: " + JSON.parse(response.body).Title);
-      console.log("Year Released: " + JSON.parse(response.body).Year);
-      console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating);
-      console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value);
-      console.log("Made In: " + JSON.parse(response.body).Country);
-      console.log("Avaiable Languages: " + JSON.parse(response.body).Language);
-      console.log("Synopsis: " + JSON.parse(response.body).Plot);
-      console.log("Actors: " + JSON.parse(response.body).Actors);
+      console.log("Title: " + JSON.parse(response.body).Title + "\n");
+      console.log("Year Released: " + JSON.parse(response.body).Year + "\n");
+      console.log("IMDB Rating: " + JSON.parse(response.body).imdbRating + "\n");
+      console.log("Rotten Tomatoes Rating: " + JSON.parse(response.body).Ratings[1].Value + "\n");
+      console.log("Made In: " + JSON.parse(response.body).Country + "\n");
+      console.log("Avaiable Languages: " + JSON.parse(response.body).Language + "\n");
+      console.log("Synopsis: " + JSON.parse(response.body).Plot + "\n");
+      console.log("Actors: " + JSON.parse(response.body).Actors + "\n");
 
     }
 
-    // in case the user enters anything that doesn't resemble an actual movie/show -- UNRESOLVED
-
     else {
 
-        //below probably won't work -- think of something similar -- layout good
+        //NOT FINISHED -- error function not working
 
         movie_name = "Gangs Of New York";
         
         console.log("Well, that didn't work..");
-        console.log("\nbut here's a movie I highly recommend :)" );
+        console.log("\nbut here's a movie I highly recommend :)");
         console.log("==========================================");
 
         console.log("Title: " + JSON.parse(response.body).Title);
@@ -163,8 +163,6 @@ function movieThis(movie_name) {
     }
 
   });
-
-  // NOT FINISHED -- JUST NEED TO FINISH ERROR PROCEDURE
 
 }
 
