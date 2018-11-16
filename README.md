@@ -2,7 +2,14 @@
 
 ## Overview
 
-* Using Node.js, "Liri" is your personal assistant to anything movie, song, and bordem-solving related! 
+### Project Insight
+
+* Using Node.js, "Liri" is your personal assistant to anything movie, song, and bordem-solving related!
+
+### Technologies Utilized
+
+* **Backend**: Node.js, Request (Node package), & Javascript
+* **Other**: CLI
 
 ## Instructions
 
