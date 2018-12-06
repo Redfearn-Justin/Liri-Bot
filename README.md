@@ -1,4 +1,4 @@
-# Liri-Node-App
+# Liri-Bot
 
 ## Overview
 
